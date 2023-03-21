@@ -21,41 +21,25 @@ $products_result = $conn->query($products_data);
         <li>
             <a href="#products">Products Table</a>
         </li>
+        <li><a href="add_product.php">Add a Product</a></li>
         <li>
             <a href="#customers">Customers Table</a>
         </li>
+        <li><a href="add_customer.php">Add a new customer</a></li>
     </ul>
     <section id="products">
         <h2>Products Table</h2>
         <table>
             <tr class="table_field">
-                <td>
-                    productCode
-                </td>
-                <td>
-                    productName
-                </td>
-                <td>
-                    productLine
-                </td>
-                <td>
-                    productScale
-                </td>
-                <td>
-                    productVendor
-                </td>
-                <td>
-                    productDescription
-                </td>
-                <td>
-                    productInStock
-                </td>
-                <td>
-                    buyPrice
-                </td>
-                <td>
-                    MSRP
-                </td>
+                <th>productCode</th>
+                <th>productName</th>
+                <th>productLine</th>
+                <th>productScale</th>
+                <th>productVendor</th>
+                <th>productDescription</th>
+                <th>productInStock</th>
+                <th>buyPrice</th>
+                <th>MSRP</th>
             </tr>
             <?php
             if ($customers_result->num_rows > 0) {
@@ -96,50 +80,25 @@ $products_result = $conn->query($products_data);
             ?>
         </table>
     </section>
+
     <br><br>
     <section id="customers">
         <h2>Customers Table</h2>
         <table>
             <tr class="table_field">
-                <td>
-                    customerCode
-                </td>
-                <td>
-                    customerName
-                </td>
-                <td>
-                    customerLastName
-                </td>
-                <td>
-                    customerFirstName
-                </td>
-                <td>
-                    phone
-                </td>
-                <td>
-                    addressLine1
-                </td>
-                <td>
-                    addressLine2
-                </td>
-                <td>
-                    city
-                </td>
-                <td>
-                    state
-                </td>
-                <td>
-                    postalCode
-                </td>
-                <td>
-                    country
-                </td>
-                <td>
-                    salesRepEmployeeNumber
-                </td>
-                <td>
-                    creditLimit
-                </td>
+                <th>customerCode</th>
+                <th>customerName</th>
+                <th>customerLastName</th>
+                <th>customerFirstName</th>
+                <th>phone</th>
+                <th>addressLine1</th>
+                <th>addressLine2</th>
+                <th>city</th>
+                <th>state</th>
+                <th>postalCode</th>
+                <th>country</th>
+                <th>salesRepEmployeeNumber</th>
+                <th>creditLimit</th>
             </tr>
             <?php
             if ($customers_result->num_rows > 0) {

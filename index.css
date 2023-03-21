@@ -9,6 +9,10 @@ table{
     text-align: center;
 
 }
+input{
+    width: auto;
+    height: auto;
+}
 tr, td{
     padding: 2% 0%;
     width: auto;
@@ -16,6 +20,7 @@ tr, td{
 table , tr, td{
     border: 1px solid;
     border-color: black;
+    border-collapse: collapse;
 }
 .table_field{
     font-weight: bolder;
