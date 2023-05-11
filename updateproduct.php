@@ -1,5 +1,9 @@
 <?php
-include_once'conn.php'
+include_once'conn.php';
+$targeted_id = $_GET["updateId"];
+$populateQuery = "SELECT * from products WHERE productCode='$targeted_id';";
+$populateData=$conn->query($populateQuery);
+$row = $populateData->fetch(PDO::FETCH_ASSOC)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +21,11 @@ include_once'conn.php'
         <table>
             <tr>
                 <td>ProductCode</td>
-                <td><input type="text" name="productCode"></td>
+                <td><input type="text" name="productCode" value="<?php echo $row['productCode']; ?>"></td>
             </tr>
             <tr>
                 <td>ProductName</td>
-                <td><input type="text" name="productName"></td>
+                <td><input type="text" name="productName" value="<?php echo $row['productName']; ?>"></td>
             </tr>
             <tr>
                 <td>ProductLine</td>
@@ -38,27 +42,27 @@ include_once'conn.php'
             </tr>
             <tr>
                 <td>ProductScale</td>
-                <td><input type="text" name="productScale"></td>
+                <td><input type="text" name="productScale" value="<?php echo $row['productScale']; ?>"></td>
             </tr>
             <tr>
                 <td>ProductVendor</td>
-                <td><input type="text" name="productVendor"></td>
+                <td><input type="text" name="productVendor" value="<?php echo $row['productVendor']; ?>"></td>
             </tr>
             <tr>
                 <td>ProductDescription</td>
-                <td><input type="text" name="productDescription"></td>
+                <td><input type="text" name="productDescription" value="<?php echo $row['productDescription']; ?>"></td>
             </tr>
             <tr>
                 <td>quantityInStock</td>
-                <td><input type="number" name="quantityInStock"></td>
+                <td><input type="number" name="quantityInStock" value="<?php echo $row['quantityInStock']; ?>"></td>
             </tr>
             <tr>
                 <td>buyPrice</td>
-                <td><input type="number" name="buyPrice" step=0.01></td>
+                <td><input type="number" name="buyPrice" step=0.01 value="<?php echo $row['buyPrice']; ?>"></td>
             </tr>
             <tr>
                 <td>MSRP</td>
-                <td><input type="number" name="MSRP" step=0.01></td>
+                <td><input type="number" name="MSRP" step=0.01 value="<?php echo $row['MSRP']; ?>"></td>
             </tr>
             <tr>
                 <td><button type="submit" name="submit">SUBMIT</button></td>
@@ -67,8 +71,10 @@ include_once'conn.php'
     </form>
     <?php
     if (isset($_POST["submit"])) {
-        $add_query = $conn->prepare("INSERT INTO products VALUES(:productCode, :productName, :productLine, :productScale, :productVendor, :productDescription, :quantityInStock, :buyPrice, :MSRP)");
-        
+        $add_query = $conn->prepare("UPDATE products SET productCode=:productCode, productName=:productName, productLine=:productLine, productScale=:productScale, productVendor=:productVendor, productDescription=:productDescription, quantityInStock=:quantityInStock, buyPrice=:buyPrice, MSRP=:MSRP WHERE productCode=:targetedID");
+            
+            $add_query->bindParam(":targetedID", $targeted_id);
+
             $add_query->bindParam(":productCode", $_POST["productCode"]);
             $add_query->bindParam(":productName", $_POST["productName"]);
             $add_query->bindParam(":productLine", $_POST["productLine"]);
@@ -79,9 +85,9 @@ include_once'conn.php'
             $add_query->bindParam(":buyPrice", $_POST["buyPrice"]);
             $add_query->bindParam(":MSRP", $_POST["MSRP"]);
         if($add_query->execute()){
-        echo "New Data has been added.";
+        echo "Data has been updated.";
     }else{
-        echo "Failed to add new data.";
+        echo "Failed to update data.";
     }
         
     }

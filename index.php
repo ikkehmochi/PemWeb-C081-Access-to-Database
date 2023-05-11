@@ -1,5 +1,6 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "classicmodels");
+include_once'conn.php';
+
 $customers_data = "SELECT * FROM customers;";
 $customers_result = $conn->query($customers_data);
 $products_data = "SELECT * FROM products;";
@@ -42,8 +43,8 @@ $products_result = $conn->query($products_data);
                 <th>MSRP</th>
             </tr>
             <?php
-            if ($customers_result->num_rows > 0) {
-                while ($row = $products_result->fetch_assoc()) {
+            if ($products_result->columnCount()>0) {
+                while ($row = $products_result->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>
             <td>"
                         . $row["productCode"] .
@@ -71,8 +72,13 @@ $products_result = $conn->query($products_data);
                         "</td>
             <td>"
                         . $row["MSRP"] .
-                        "</td>
-        </tr>";
+                        "</td>";
+                        echo '<td>
+                <button class="updatebtn"><a href="updateproduct.php?updateId='.$row["productCode"].'">UPDATE</a></button>
+                <button class="deletebtn"><a href="deleteproduct.php?deleteId='.$row["productCode"].'">DELETE</a></button>
+            </td>
+        
+            </tr>';
                 }
             } else {
                 echo "No Results";
@@ -101,8 +107,8 @@ $products_result = $conn->query($products_data);
                 <th>creditLimit</th>
             </tr>
             <?php
-            if ($customers_result->num_rows > 0) {
-                while ($row = $customers_result->fetch_assoc()) {
+            if ($customers_result->columnCount() > 0) {
+                while ($row = $customers_result->fetch(PDO::FETCH_ASSOC)) {
                     echo "        <tr>
                 <td>"
                         . $row["customerNumber"] .
@@ -142,8 +148,13 @@ $products_result = $conn->query($products_data);
                         "</td>
                 <td>"
                         . $row["creditLimit"] .
-                        "</td>
-            </tr>";
+                        "</td>";
+                        echo '<td>
+                        <button class="updatebtn"><a href="updatecustomer.php?updateId=' . $row["customerNumber"] . '">UPDATE</a></button>
+                        <button class="deletebtn"><a href="deletecustomer.php?deleteId=' .$row["customerNumber"].'">DELETE</a></button>
+                    </td>
+                
+                    </tr>';
                 }
             } else {
                 echo "No Results";
